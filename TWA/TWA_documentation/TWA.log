@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.23)  22 OCT 2024 10:35
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (MiKTeX 24.4) (preloaded format=pdflatex 2024.9.23)  8 DEC 2024 00:21
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/troll/OneDrive/Documents/TWA/TWA/TWA.tex
-(c:/Users/troll/OneDrive/Documents/TWA/TWA/TWA.tex
+**c:/Users/troll/ResearchProj/TWA/TWA_documentation/TWA.tex
+(c:/Users/troll/ResearchProj/TWA/TWA_documentation/TWA.tex
 LaTeX2e <2024-06-01> patch level 2
 L3 programming layer <2024-08-30>
 (C:\Users\troll\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -340,14 +340,14 @@ L3 programming layer <2024-08-30>
  ) 
 Here is how much of TeX's memory you used:
  4304 strings out of 473899
- 72663 string characters out of 5726500
- 474498 words of memory out of 5000000
+ 72719 string characters out of 5726500
+ 473480 words of memory out of 5000000
  27157 multiletter control sequences out of 15000+600000
  564589 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 67i,11n,77p,507b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 67i,11n,77p,515b,531s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx10.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmbx12.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi7.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr10.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr12.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr17.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr7.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-Output written on TWA.pdf (4 pages, 303133 bytes).
+Output written on TWA.pdf (4 pages, 301062 bytes).
 PDF statistics:
  98 PDF objects out of 1000 (max. 8388607)
  0 named destinations out of 1000 (max. 500000)

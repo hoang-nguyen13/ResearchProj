@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1729586135.86344 "c:/Users/troll/OneDrive/Documents/TWA/TWA/TWA.tex" "TWA.pdf" "TWA" 1729586136.93235 0
+["pdflatex"] 1733613698.96691 "c:/Users/troll/ResearchProj/TWA/TWA_documentation/TWA.tex" "TWA.pdf" "TWA" 1733613701.55908 0
   "C:/Users/troll/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map" 1727555377 80909 eab91d9745dd2edfd62a31d53cd5fe15 ""
   "C:/Users/troll/AppData/Local/MiKTeX/miktex/data/le/pdftex/pdflatex.fmt" 1727081150 11948197 7cc2999261c28233a5a416cf805ad649 ""
   "C:/Users/troll/AppData/Local/Programs/MiKTeX/fonts/tfm/public/amsfonts/cmextra/cmex7.tfm" 1233951848 1004 54797486969f23fa377b128694d548df ""
@@ -64,12 +64,12 @@
   "C:/Users/troll/AppData/Local/Programs/MiKTeX/tex/latex/graphics/trig.sty" 1718270727 4023 2c9f39712cf7b43d3eb93a8bbd5c8f67 ""
   "C:/Users/troll/AppData/Local/Programs/MiKTeX/tex/latex/l3backend/l3backend-pdftex.def" 1716480499 29785 9f93ab201fe5dd053afcc6c1bcf7d266 ""
   "C:/Users/troll/AppData/Local/Programs/MiKTeX/tex/latex/tools/multicol.sty" 1718356376 32621 00e86c03dbf6e71d7ea7ebac2bd4fcaf ""
-  "Sz.png" 1729283193 21998 4d99ba8566c392d9f79567fca29e61b8 ""
-  "TWA.aux" 1729586136 2295 db2b30f083fbdd57e915255efa7e6e58 "pdflatex"
-  "TWA.tex" 1729586135 9357 12f1a396f034fe44535fef3e32f31855 ""
-  "TWA_direct_Sz.png" 1729281647 51232 70c94ec6d66eded70842e8dae1ba6add ""
-  "c:/Users/troll/OneDrive/Documents/TWA/TWA/TWA.tex" 1729586135 9357 12f1a396f034fe44535fef3e32f31855 ""
-  "intensity.png" 1729281635 47785 0115a48a690d1bf0d849214297b2056a ""
+  "Sz.png" 1733237550 21998 4d99ba8566c392d9f79567fca29e61b8 ""
+  "TWA.aux" 1733613701 2295 db2b30f083fbdd57e915255efa7e6e58 "pdflatex"
+  "TWA.tex" 1733613688 9339 10899baacbb624b023ab5d2f97d9b69e ""
+  "TWA_direct_Sz.png" 1733237550 51232 70c94ec6d66eded70842e8dae1ba6add ""
+  "c:/Users/troll/ResearchProj/TWA/TWA_documentation/TWA.tex" 1733613688 9339 10899baacbb624b023ab5d2f97d9b69e ""
+  "intensity.png" 1733237550 47785 0115a48a690d1bf0d849214297b2056a ""
   (generated)
   "TWA.aux"
   "TWA.log"

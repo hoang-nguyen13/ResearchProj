@@ -1,6 +1,6 @@
-PWD c:\Users\troll\OneDrive\Documents\TWA\TWA
+PWD c:\Users\troll\ResearchProj\TWA\TWA_documentation
 INPUT C:\Users\troll\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\troll\OneDrive\Documents\TWA\TWA\TWA.tex
+INPUT c:\Users\troll\ResearchProj\TWA\TWA_documentation\TWA.tex
 OUTPUT TWA.log
 INPUT C:\Users\troll\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\troll\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
