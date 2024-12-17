@@ -36,12 +36,12 @@ module MyFunctions
         ϕ = u[nAtoms.+(1:nAtoms)]
         sqrt_3 = sqrt(3)
         dϕ_drift_sum = zeros(nAtoms)
-        if case == 1 # 1D case
+        if case == 1
             dϕ_drift_sum[2:end-1] .= 2 .+ sqrt_3 .* (cos.(θ[1:end-2]) .+ cos.(θ[3:end]))
-            dϕ_drift_sum[1] = 1 + sqrt_3 * cos(θ[2])  # Fixed
-            dϕ_drift_sum[end] = 1 + sqrt_3 * cos(θ[end-1])  # Fixed
+            dϕ_drift_sum[1] = 1 + sqrt_3 * cos(θ[2]) 
+            dϕ_drift_sum[end] = 1 + sqrt_3 * cos(θ[end-1])
         end
-        if case == 2 # 2D case
+        if case == 2
             for n in 1:nAtoms
                 neighbor_indices = neighbors[n]
                 dϕ_drift_sum[n] = sum(1 .+ sqrt_3 * cos.(θ[neighbor_indices]))

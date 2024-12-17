@@ -1,17 +1,16 @@
 module MyParams
-    export Γ, γ, Δ, V, nAtoms, case, tf, nT, nTraj, dt, percent_excited, beta, delta, Ω_values, Ω_crit
-    Γ = 1                 
-    γ = 20 * Γ          
-    Δ = 430 * Γ         
-    V = Δ              
-    nAtoms = 9       
-    tf = 7                  
-    nT = 400                 
-    nTraj = 250              
-    dt = 1e-4
-    percent_excited = 1.0 
+    export Γ, γ, Δ, V, nAtoms, case, tf, nT, nTraj, dt, percent_excited, beta, delta, Ω_values
+    Γ = 1
+    γ = 20 * Γ
+    Δ = 400 * Γ
+    V = Δ
+    nAtoms = 400
+    tf = 25
+    nT = 1000
+    nTraj = 500
+    dt = 1e-3
+    percent_excited = 1.0
     case = 2
-    Ω_crit = 5.24
     if case == 1
         beta = 0.276
         delta = 0.159
@@ -19,7 +18,9 @@ module MyParams
     else
         beta = 0.584
         delta = 0.451
-        # Ω_values = [0.1,1,3,5,7,9,11,13,15,17,19,20,23]
-        Ω_values = [3.5,4,4.5,5,5.2,5.3,5.5,5.7,6]
+        Ω_values = [0.1,1,2,3,3.5,4,4.5,5,5.1,5.3,5.5,5.7,5.9,6,6.1,6.2,6.25,6.3,
+        6.4,6.45,6.5,6.6,6.65,6.7,6.8,6.85,6.9,7,7.1,7.15,7.3,7.4,7.45,7.5,7.7,
+        7.9,8,8.5,9,9.5,10,10.5,11,11.5,12,12.5,13,13.5,14,14.5,15,15.5,16,16.5,
+        17,17.5,18,18.5,19,19.5,20,20.5,21,21.5,22,22.5,23,23.5,24,24.5,25]
     end
 end

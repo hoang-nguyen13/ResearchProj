@@ -1,5 +1,7 @@
 using LaTeXStrings
 using JLD2
+using LinearAlgebra
+using Statistics
 BLAS.set_num_threads(1)
 
 include("parameters.jl")
