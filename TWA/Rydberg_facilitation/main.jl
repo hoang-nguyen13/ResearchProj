@@ -10,7 +10,7 @@ using .MyFunctions
 using .MyParams
 
 script_dir = @__DIR__
-data_folder = joinpath(script_dir, "results_data")
+data_folder = joinpath(script_dir, "results_data/Δ=$(MyParams.Δ),γ=$(MyParams.γ)")
 
 if !isdir(data_folder)
     mkdir(data_folder)
@@ -23,6 +23,6 @@ end
         Sz_vals = MyFunctions.compute_spin_Sz(sol, MyParams.nAtoms)
         sz_mean = mean(Sz_vals, dims=3)[:, :]
         sz_mean_mean = (1 .+ mean(mean(Sz_vals, dims=3)[:, :], dims=1)) / 2
-        @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω).jld2" t sz_mean_mean
+        @save "$(data_folder)/sz_mean_steady_for_$(MyParams.case)D,Ω=$(Ω),Δ=$(MyParams.Δ),γ=$(MyParams.γ).jld2" t sz_mean_mean
     end
 end
