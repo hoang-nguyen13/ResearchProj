@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #SBATCH -J Rydberg
-#SBATCH -c 16
+#SBATCH -c 36
 #SBATCH -t 50:00:00
-#SBATCH -p epyc-256
+#SBATCH -p physik-fleischhauer
 #SBATCH -e err/%x_%A.err
 #SBATCH -o out/%x_%A.out
 #SBATCH --mem 240G

@@ -117,14 +117,14 @@ function compute_spin_Sz(sol, nAtoms)
 end
 
 Γ = 1
-γ = 20 * Γ
+γ = 10 * Γ
 Δ = 400 * Γ
 V = Δ
-natoms = [64,121,225]
+natoms = [400]
 tf = 25
 nT = 1000
 nTraj = 500
-dt = 1e-3
+dt = 1e-4
 percent_excited = 1.0
 case = 2
 if case == 1
