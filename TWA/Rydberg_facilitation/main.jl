@@ -4,7 +4,6 @@ using LinearAlgebra
 using Statistics
 using DifferentialEquations
 using Random
-using Folds
 BLAS.set_num_threads(1)
 
 function sampleSpinZPlus(n)
@@ -97,7 +96,7 @@ end
 function computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
     tspan = (0, tf)
     tSave = LinRange(0, tf, nT)
-    u0 = (2 * nAtoms)
+    u0 = Vector{Float64}(undef, 2 * nAtoms)
     p = (Ω, Δ, V, Γ, γ, nAtoms)
 
     prob = SDEProblem(drift!, diffusion!, u0, tspan, p)
@@ -120,7 +119,7 @@ end
 γ = 10 * Γ
 Δ = 400 * Γ
 V = Δ
-natoms = [400]
+nAtoms_list = [400]
 tf = 25
 nT = 1000
 nTraj = 500
@@ -149,7 +148,7 @@ end
 script_dir = @__DIR__
 
 @time begin
-    for nAtoms1 in natoms
+    for nAtoms1 in nAtoms_list
         global nAtoms = nAtoms1
         global num_excited = Int(round(percent_excited * nAtoms))
         global excited_indices = sort(randperm(nAtoms)[1:num_excited])
