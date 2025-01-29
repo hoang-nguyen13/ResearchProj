@@ -113,7 +113,7 @@ end
 
 function compute_spin_Sz(sol, nAtoms)
     θ = sol[1:nAtoms, :, :]
-    Szs = sqrt(3) * cos.(θ)
+    Szs = sum(sqrt(3) * cos.(θ),dims=1)
     return Szs
 end
 
