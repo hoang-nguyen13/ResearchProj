@@ -113,7 +113,7 @@ end
 
 function compute_spin_Sz(sol, nAtoms)
     θ = sol[1:nAtoms, :, :]
-    Szs = sqrt(3) * cos.(θ)
+    Szs = sum(sqrt(3) * cos.(θ),dims=1)
     return Szs
 end
 
@@ -124,8 +124,8 @@ V = Δ
 nAtoms_list = [400]
 tf = 25
 nT = 1000
-nTraj = 500
-dt = 1e-4
+nTraj = 20
+dt = 1e-3
 percent_excited = 1.0
 case = 2
 if case == 1
@@ -135,16 +135,7 @@ if case == 1
 else
     beta = 0.584
     delta = 0.451
-    Ω_values = [0.1, 0.5, 0.9, 1.3, 1.7,
-    2.1, 2.5, 2.9, 3.3, 3.7, 4.1, 4.5,
-    4.9, 5.3, 5.7, 6.1, 6.5, 6.9, 7.3,
-    7.7, 8.1, 8.5, 8.9, 9.3, 9.7, 10.1,
-    10.5, 10.9, 11.3, 11.7, 12.1, 12.5,
-    12.9, 13.3, 13.7, 14.1, 14.5, 14.9,
-    15.3, 15.7, 16.1, 16.5, 16.9, 17.3,
-    17.7, 18.1, 18.5, 18.9, 19.3, 19.7,
-    20.1, 20.5, 20.9, 21.3, 21.7, 22.1,
-    22.5, 22.9, 23.3, 23.7, 24.1, 24.5, 24.9]
+    Ω_values = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
 end
 
 script_dir = @__DIR__
@@ -165,6 +156,7 @@ script_dir = @__DIR__
             @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
             sz_mean = mean(Sz_vals, dims=3)[:, :]
+            sz_mean_mean = (1 .+ mean(mean(Sz_vals, dims=3)[:, :], dims=1)) / 2
             @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2" t sz_mean_mean
         end
     end
