@@ -64,7 +64,9 @@ function diffusion!(du, u, p, t)
     term3 = (3 / 6) .* cos.(2 .* θ)
     cscθ2 = csc.(θ) .^ 2
     diffusion = sqrt.(Γ .* (term1 .+ term2 .+ term3) .* cscθ2 .+ 4 .* γ)
-    du[1:nAtoms] .= 0.0
+    theta_diffusion = sqrt.(γ) .* abs.(sin.(θ))  # Scales with sqrt(γ) and vanishes at θ = 0,π
+
+    du[1:nAtoms] .= theta_diffusion
     du[nAtoms.+(1:nAtoms)] .= diffusion
 end
 
@@ -116,7 +118,7 @@ function compute_spin_Sz(sol, nAtoms)
 end
 
 Γ = 1
-γ = 10 * Γ
+γ = 0.1 * Γ
 Δ = 400 * Γ
 V = Δ
 nAtoms_list = [400]
@@ -163,7 +165,6 @@ script_dir = @__DIR__
             @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
             sz_mean = mean(Sz_vals, dims=3)[:, :]
-            sz_mean_mean = (1 .+ mean(mean(Sz_vals, dims=3)[:, :], dims=1)) / 2
             @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2" t sz_mean_mean
         end
     end
