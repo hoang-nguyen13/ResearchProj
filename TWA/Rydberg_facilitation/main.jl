@@ -135,7 +135,7 @@ if case == 1
 else
     beta = 0.584
     delta = 0.451
-    Ω_values = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20];
+    Ω_values = 0:0.5:25
 end
 
 script_dir = @__DIR__
@@ -156,8 +156,7 @@ script_dir = @__DIR__
             @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
             sz_mean = mean(Sz_vals, dims=3)[:, :]
-            sz_mean_mean = (1 .+ mean(mean(Sz_vals, dims=3)[:, :], dims=1)) / 2
-            @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2" t sz_mean_mean
+            @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2" t sz_mean
         end
     end
 end
