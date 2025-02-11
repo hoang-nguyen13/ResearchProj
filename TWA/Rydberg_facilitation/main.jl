@@ -5,7 +5,7 @@ using Statistics
 using DifferentialEquations
 using Random
 using ArgParse
-BLAS.set_num_threads(36)
+BLAS.set_num_threads(1)
 
 function sampleSpinZPlus(n)
     θ = fill(acos(1 / sqrt(3)), n)
@@ -127,14 +127,6 @@ function parse_commandline()
         "--omega-end"
             arg_type = Float64
             required = true
-        "--traj-start"
-            arg_type = Int
-            required = true
-            help = "Start index for trajectory chunk"
-        "--traj-end"
-            arg_type = Int
-            required = true
-            help = "End index for trajectory chunk"
     end
     return parse_args(s)
 end
@@ -152,10 +144,6 @@ percent_excited = 1.0
 case = 2
 
 args = parse_commandline()
-if args["traj-start"] < 0 || args["traj-end"] > nTraj || args["traj-start"] >= args["traj-end"]
-    error("Invalid trajectory range: $(args["traj-start"]) to $(args["traj-end"])")
-end
-nTraj_chunk = args["traj-end"] - args["traj-start"]
 
 if case == 1
     beta = 0.276
@@ -188,7 +176,7 @@ script_dir = @__DIR__
             @time t, sol = computeTWA(nAtoms, tf, nT, nTraj_chunk, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
             sz_mean = mean(Sz_vals, dims=3)[:, :]
-            output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ)_traj$(args["traj-start"])-$(args["traj-end"]).jld2"
+            output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"            
             try
                 @save output_file t sz_mean
             catch e
