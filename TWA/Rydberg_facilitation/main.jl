@@ -173,7 +173,7 @@ script_dir = @__DIR__
         for Ω1 in Ω_values
             println("Computing for Ω = $(Ω1)...\n")
             Ω = Ω1
-            @time t, sol = computeTWA(nAtoms, tf, nT, nTraj_chunk, dt, Ω, Δ, V, Γ, γ)
+            @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
             sz_mean = mean(Sz_vals, dims=3)[:, :]
             output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"            
