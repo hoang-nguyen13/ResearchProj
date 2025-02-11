@@ -4,6 +4,7 @@ using LinearAlgebra
 using Statistics
 using DifferentialEquations
 using Random
+using ArgParse
 BLAS.set_num_threads(1)
 
 function sampleSpinZPlus(n)
@@ -117,6 +118,21 @@ function compute_spin_Sz(sol, nAtoms)
     return Szs
 end
 
+function parse_commandline()
+    s = ArgParseSettings()
+    @add_arg_table! s begin
+        "--omega-start"
+            help = "Start value for Omega range"
+            arg_type = Float64
+            required = true
+        "--omega-end"
+            help = "End value for Omega range"
+            arg_type = Float64
+            required = true
+    end
+    return parse_args(s)
+end
+
 Γ = 1
 γ = 0.1 * Γ
 Δ = 400 * Γ
@@ -128,14 +144,17 @@ nTraj = 500
 dt = 1e-3
 percent_excited = 1.0
 case = 2
+
+args = parse_commandline()
+
 if case == 1
     beta = 0.276
     delta = 0.159
-    Ω_values = [1,3,5,7,9,11,13,15,17,19,21,23,25,27,29,31,33,35,37,40]
+    Ω_values = range(args["omega-start"], args["omega-end"], step=2.0)
 else
     beta = 0.584
     delta = 0.451
-    Ω_values = 0:0.5:25
+    Ω_values = range(args["omega-start"], args["omega-end"], step=0.5)
 end
 
 script_dir = @__DIR__
