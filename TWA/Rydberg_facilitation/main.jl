@@ -171,7 +171,7 @@ script_dir = @__DIR__
             end
         end
         for Ω1 in Ω_values
-            println("Computing for Ω = $(Ω1), trajectories $(args["traj-start"])-$(args["traj-end"])...\n")
+            println("Computing for Ω = $(Ω1)...\n")
             Ω = Ω1
             @time t, sol = computeTWA(nAtoms, tf, nT, nTraj_chunk, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
