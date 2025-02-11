@@ -7,21 +7,19 @@
 #SBATCH -e err/%x_%A_%a.err
 #SBATCH -o out/%x_%A_%a.out
 #SBATCH --mem 180G
-#SBATCH --array=0-1  # 2 chunks for 2 nodes
-#SBATCH --nodes=1    # Request 1 node per array task
+#SBATCH --array=0-50  # 51 values from 0 to 25 in steps of 0.5
 
-# Define omega chunks (split into 2)
-OMEGA_RANGES=(
-    "0 12.5"    # First half for node 1
-    "12.5 25"   # Second half for node 2
+# Single omega values array
+OMEGA_VALUES=(
+    0 0.5 1 1.5 2 2.5 3 3.5 4 4.5 5 
+    5.5 6 6.5 7 7.5 8 8.5 9 9.5 10 
+    10.5 11 11.5 12 12.5 13 13.5 14 14.5 
+    15 15.5 16 16.5 17 17.5 18 18.5 19 19.5 
+    20 20.5 21 21.5 22 22.5 23 23.5 24 24.5 25
 )
 
+# Get single omega value
+OMEGA=${OMEGA_VALUES[$SLURM_ARRAY_TASK_ID]}
 
-# Get omega range
-OMEGA_START=$(echo ${OMEGA_RANGES[$SLURM_ARRAY_TASK_ID]} | cut -d' ' -f1)
-OMEGA_END=$(echo ${OMEGA_RANGES[$SLURM_ARRAY_TASK_ID]} | cut -d' ' -f2)
-
-# Run Julia with omega range only
-~/julia-1.11.2/bin/julia -t auto main.jl \
-    --omega-start $OMEGA_START \
-    --omega-end $OMEGA_END
+# Run Julia with single omega value
+~/julia-1.11.2/bin/julia -t auto main.jl --omega-start $OMEGA
