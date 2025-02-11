@@ -144,15 +144,16 @@ percent_excited = 1.0
 case = 2
 
 args = parse_commandline()
+Ω = args["omega-start"]
 
 if case == 1
     beta = 0.276
     delta = 0.159
-    Ω_values = range(args["omega-start"], args["omega-end"], step=2.0)
+    # Ω_values = range(args["omega-start"], args["omega-end"], step=2.0)
 else
     beta = 0.584
     delta = 0.451
-    Ω_values = range(args["omega-start"], args["omega-end"], step=0.5)
+    # Ω_values = range(args["omega-start"], args["omega-end"], step=0.5)
 end
 
 script_dir = @__DIR__
@@ -170,18 +171,19 @@ script_dir = @__DIR__
                 rethrow(e)
             end
         end
-        for Ω1 in Ω_values
-            println("Computing for Ω = $(Ω1)...\n")
-            Ω = Ω1
-            @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
-            Sz_vals = compute_spin_Sz(sol, nAtoms)
-            sz_mean = mean(Sz_vals, dims=3)[:, :]
-            output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"            
-            try
-                @save output_file t sz_mean
-            catch e
-                @error "Failed to save results" exception=(e, catch_backtrace())
-            end
+        println("Computing for Ω = $(Ω1)")
+        @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
+        Sz_vals = compute_spin_Sz(sol, nAtoms)
+        sz_mean = mean(Sz_vals, dims=3)[:, :]
+        output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"            
+        try
+            @save output_file t sz_mean
+            sol = nothing
+            Sz_vals = nothing
+            sz_mean = nothing
+            GC.gc()
+        catch e
+            @error "Failed to save results" exception=(e, catch_backtrace())
         end
     end
 end
