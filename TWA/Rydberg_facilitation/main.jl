@@ -5,7 +5,7 @@ using Statistics
 using DifferentialEquations
 using Random
 using ArgParse
-BLAS.set_num_threads(1)
+BLAS.set_num_threads(36)
 
 function sampleSpinZPlus(n)
     θ = fill(acos(1 / sqrt(3)), n)
@@ -122,13 +122,19 @@ function parse_commandline()
     s = ArgParseSettings()
     @add_arg_table! s begin
         "--omega-start"
-            help = "Start value for Omega range"
             arg_type = Float64
             required = true
         "--omega-end"
-            help = "End value for Omega range"
             arg_type = Float64
             required = true
+        "--traj-start"
+            arg_type = Int
+            required = true
+            help = "Start index for trajectory chunk"
+        "--traj-end"
+            arg_type = Int
+            required = true
+            help = "End index for trajectory chunk"
     end
     return parse_args(s)
 end
@@ -146,6 +152,10 @@ percent_excited = 1.0
 case = 2
 
 args = parse_commandline()
+if args["traj-start"] < 0 || args["traj-end"] > nTraj || args["traj-start"] >= args["traj-end"]
+    error("Invalid trajectory range: $(args["traj-start"]) to $(args["traj-end"])")
+end
+nTraj_chunk = args["traj-end"] - args["traj-start"]
 
 if case == 1
     beta = 0.276
@@ -165,17 +175,25 @@ script_dir = @__DIR__
         global num_excited = Int(round(percent_excited * nAtoms))
         global excited_indices = sort(randperm(nAtoms)[1:num_excited])
         data_folder = joinpath(script_dir, "results_data/atoms=$(nAtoms),Δ=$(Δ),γ=$(γ)")
-        if !isdir(data_folder)
-            mkdir(data_folder)
+        try
+            mkpath(data_folder)
+        catch e
+            if !isdir(data_folder)
+                rethrow(e)
+            end
         end
-        println("Computing for nAtoms = $(nAtoms)...\n")
         for Ω1 in Ω_values
-            println("Computing for Ω = $(Ω1)...\n")
+            println("Computing for Ω = $(Ω1), trajectories $(args["traj-start"])-$(args["traj-end"])...\n")
             Ω = Ω1
-            @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
+            @time t, sol = computeTWA(nAtoms, tf, nT, nTraj_chunk, dt, Ω, Δ, V, Γ, γ)
             Sz_vals = compute_spin_Sz(sol, nAtoms)
             sz_mean = mean(Sz_vals, dims=3)[:, :]
-            @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2" t sz_mean
+            output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ)_traj$(args["traj-start"])-$(args["traj-end"]).jld2"
+            try
+                @save output_file t sz_mean
+            catch e
+                @error "Failed to save results" exception=(e, catch_backtrace())
+            end
         end
     end
 end
