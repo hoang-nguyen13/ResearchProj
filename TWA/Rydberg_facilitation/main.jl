@@ -118,19 +118,6 @@ function compute_spin_Sz(sol, nAtoms)
     return Szs
 end
 
-function parse_commandline()
-    s = ArgParseSettings()
-    @add_arg_table! s begin
-        "--omega-start"
-            arg_type = Float64
-            required = true
-        "--omega-end"
-            arg_type = Float64
-            required = true
-    end
-    return parse_args(s)
-end
-
 Γ = 1
 γ = 0.1 * Γ
 Δ = 400 * Γ
@@ -143,9 +130,6 @@ dt = 1e-3
 percent_excited = 1.0
 case = 2
 
-args = parse_commandline()
-Ω = args["omega-start"]
-
 if case == 1
     beta = 0.276
     delta = 0.159
@@ -153,7 +137,7 @@ if case == 1
 else
     beta = 0.584
     delta = 0.451
-    # Ω_values = range(args["omega-start"], args["omega-end"], step=0.5)
+    Ω_values = 0:0.5:25
 end
 
 script_dir = @__DIR__
@@ -164,26 +148,15 @@ script_dir = @__DIR__
         global num_excited = Int(round(percent_excited * nAtoms))
         global excited_indices = sort(randperm(nAtoms)[1:num_excited])
         data_folder = joinpath(script_dir, "results_data/atoms=$(nAtoms),Δ=$(Δ),γ=$(γ)")
-        try
-            mkpath(data_folder)
-        catch e
-            if !isdir(data_folder)
-                rethrow(e)
-            end
-        end
-        println("Computing for Ω = $(Ω1)")
+        mkpath(data_folder)
+        index = parse(Int, ARGS[1])
+        Ω = Ω_values[index]
+        println("Computing for Ω = $(Ω)")
         @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
         Sz_vals = compute_spin_Sz(sol, nAtoms)
         sz_mean = mean(Sz_vals, dims=3)[:, :]
-        output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"            
-        try
-            @save output_file t sz_mean
-            sol = nothing
-            Sz_vals = nothing
-            sz_mean = nothing
-            GC.gc()
-        catch e
-            @error "Failed to save results" exception=(e, catch_backtrace())
+        output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"
+        @save output_file t sz_mean
         end
     end
 end
