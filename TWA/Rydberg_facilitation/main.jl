@@ -65,8 +65,10 @@ function diffusion!(du, u, p, t)
     term3 = (3 / 6) .* cos.(2 .* θ)
     cscθ2 = csc.(θ) .^ 2
     diffusion = sqrt.(Γ .* (term1 .+ term2 .+ term3) .* cscθ2 .+ 4 .* γ)
-    theta_diffusion = sqrt.(γ) .* abs.(sin.(θ))  # Scales with sqrt(γ) and vanishes at θ = 0,π
-
+    theta_diffusion = 0.0
+    if γ < 10
+        theta_diffusion = sqrt.(γ) .* abs.(sin.(θ))
+    end
     du[1:nAtoms] .= theta_diffusion
     du[nAtoms.+(1:nAtoms)] .= diffusion
 end
