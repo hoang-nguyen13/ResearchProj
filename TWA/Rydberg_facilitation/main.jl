@@ -137,7 +137,7 @@ if case == 1
 else
     beta = 0.584
     delta = 0.451
-    Ω_values = 0:0.5:25
+    Ω_values = 0:0.5:2
 end
 
 script_dir = @__DIR__
@@ -147,16 +147,16 @@ script_dir = @__DIR__
         global nAtoms = nAtoms1
         global num_excited = Int(round(percent_excited * nAtoms))
         global excited_indices = sort(randperm(nAtoms)[1:num_excited])
-        data_folder = joinpath(script_dir, "results_data/atoms=$(nAtoms),Δ=$(Δ),γ=$(γ)")
-        mkpath(data_folder)
+       data_folder = joinpath(script_dir, "results_data/atoms=$(nAtoms),Δ=$(Δ),γ=$(γ)")
+        if !isdir(data_folder)
+            mkdir(data_folder)
+        end
+        println("Computing for nAtoms = $(nAtoms)...\n")
         index = parse(Int, ARGS[1])
         Ω = Ω_values[index]
         println("Computing for Ω = $(Ω)")
         @time t, sol = computeTWA(nAtoms, tf, nT, nTraj, dt, Ω, Δ, V, Γ, γ)
-        Sz_vals = compute_spin_Sz(sol, nAtoms)
-        sz_mean = mean(Sz_vals, dims=3)[:, :]
-        output_file = "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2"
-        @save output_file t sz_mean
+        @save "$(data_folder)/sz_mean_steady_for_$(case)D,Ω=$(Ω),Δ=$(Δ),γ=$(γ).jld2" t sol
         end
     end
 end
